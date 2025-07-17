@@ -101,7 +101,7 @@ We may update this privacy policy from time to time. We will notify you of any c
 
 If you have any questions about this privacy policy or our practices, please contact us at:
 
-**Email**: privacy@pounceitgame.com
+**Email**: pounceit@trouarat.com
 
 ## Legal Basis for Processing
 
