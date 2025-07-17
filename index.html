@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pounce It - The Ultimate Cat Game</title>
+    <link rel="icon" type="image/png" href="assets/AppIcon-1024.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .target {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.3;
+            animation: float 20s infinite;
+        }
+
+        .mouse {
+            background-image: url('assets/mouse_sheet.png');
+            animation: scurry 15s infinite;
+        }
+
+        .butterfly {
+            background-image: url('assets/Butterfly_sheet.png');
+            animation: flutter 25s infinite;
+        }
+
+        .bird {
+            background-image: url('assets/bird.png');
+            animation: fly 30s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(100px, -50px) rotate(120deg); }
+            66% { transform: translate(-50px, 100px) rotate(240deg); }
+        }
+
+        @keyframes scurry {
+            0%, 100% { transform: translate(0, 0) scaleX(1); }
+            25% { transform: translate(200px, 100px) scaleX(-1); }
+            50% { transform: translate(-100px, 200px) scaleX(1); }
+            75% { transform: translate(150px, -100px) scaleX(-1); }
+        }
+
+        @keyframes flutter {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(150px, -100px) rotate(45deg); }
+            50% { transform: translate(300px, 50px) rotate(-45deg); }
+            75% { transform: translate(100px, 150px) rotate(90deg); }
+        }
+
+        @keyframes fly {
+            0% { transform: translate(-100vw, 20vh) rotate(0deg); }
+            100% { transform: translate(100vw, 40vh) rotate(360deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .logo-container {
+            margin-bottom: 2rem;
+            animation: bounceIn 1s ease-out;
+        }
+
+        .app-icon {
+            width: 150px;
+            height: 150px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .tagline {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .cta-container {
+            margin-bottom: 3rem;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: #000;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .app-store-logo {
+            width: 30px;
+            height: 30px;
+        }
+
+        .footer {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .footer a:hover {
+            border-bottom-color: white;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .tagline {
+                font-size: 1.2rem;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="animated-background"></div>
+    
+    <div class="container">
+        <div class="logo-container">
+            <img src="assets/AppIcon-1024.png" alt="Pounce It App Icon" class="app-icon">
+            <h1>Pounce It</h1>
+            <p class="tagline">The Ultimate Cat Game for Your Feline Friend</p>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🐭</div>
+                <h3>Realistic Prey</h3>
+                <p>Mice, butterflies, fish, and laser dots that move just like the real thing</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎮</div>
+                <h3>Engaging Gameplay</h3>
+                <p>120Hz smooth animations keep your cat entertained for hours</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🏆</div>
+                <h3>Track Progress</h3>
+                <p>High scores, achievements, and Game Center integration</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔊</div>
+                <h3>Immersive Audio</h3>
+                <p>Realistic sounds and background music enhance the hunting experience</p>
+            </div>
+        </div>
+
+        <div class="cta-container">
+            <a href="https://apps.apple.com/app/pounce-it" class="download-btn">
+                <svg class="app-store-logo" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                Download on the App Store
+            </a>
+        </div>
+
+        <div class="footer">
+            <p><a href="PRIVACY_POLICY.html">Privacy Policy</a> | © 2025 Pounce It. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Create animated background targets
+        function createTarget() {
+            const types = ['mouse', 'butterfly', 'bird'];
+            const target = document.createElement('div');
+            target.className = `target ${types[Math.floor(Math.random() * types.length)]}`;
+            
+            // Random starting position
+            target.style.left = Math.random() * window.innerWidth + 'px';
+            target.style.top = Math.random() * window.innerHeight + 'px';
+            
+            // Random animation delay
+            target.style.animationDelay = Math.random() * 20 + 's';
+            
+            document.getElementById('animated-background').appendChild(target);
+            
+            // Remove after animation completes
+            setTimeout(() => {
+                target.remove();
+            }, 30000);
+        }
+
+        // Create initial targets
+        for (let i = 0; i < 6; i++) {
+            setTimeout(() => createTarget(), i * 2000);
+        }
+
+        // Continue creating targets
+        setInterval(createTarget, 5000);
+    </script>
+</body>
+</html>
